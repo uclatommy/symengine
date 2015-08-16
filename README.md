@@ -34,6 +34,21 @@ For RPM based systems (Fedora etc.):
 
     yum install cmake gmp-devel
 
+For OS X (Tested on Yosemite 10.10.5)
+
+	brew install gmp
+	
+### Note on linking to the library in OS X
+
+If building applications that use SymEngine as a static library, be sure to
+link to the gmp libraries. Your compile command should look something like:
+
+	g++ -L /opt/local/lib -I /opt/local/include -lgmpxx -lgmp -lsymengine main.cpp
+	
+If you encounter compile errors indicating unrecognized symbols, check the 
+order of the libraries in your compile command. Make sure the order is gmpxx,
+gmp, then symengine.
+
 Install SymEngine:
 
     cmake .
