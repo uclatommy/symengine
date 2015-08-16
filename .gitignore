@@ -98,3 +98,4 @@ symengine/ruby/ext/symengine/extconf.h
 symengine/ruby/notebooks/.ipynb_checkpoints/
 symengine/ruby/notebooks/Gemfile.lock
 symengine/ruby/callgrind.out.*
+.cproject
