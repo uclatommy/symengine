@@ -42,6 +42,7 @@ public:
     * */
     static RCP<const Number> from_two_ints(const Integer &n,
             const Integer &d);
+    static RCP<const Number> from_two_ints(const long n, const long d);
     //! Convert to `mpq_class`.
     inline mpq_class as_mpq() const { return this->i; }
     //! \return `true` if `0`
@@ -54,12 +55,12 @@ public:
     inline bool is_int() const { return this->i.get_den() == 1; }
     //! \return `true` if positive
     inline virtual bool is_positive() const {
-        return ((this->i.get_den() > 0) && (this->i.get_num() > 0)) ||
-                ((this->i.get_den() < 0) && (this->i.get_num() < 0)) ; }
+        return ((this->i.get_den() > 0) and (this->i.get_num() > 0)) ||
+                ((this->i.get_den() < 0) and (this->i.get_num() < 0)) ; }
     //! \return `true` if negative
     inline virtual bool is_negative() const {
-        return ((this->i.get_den() < 0) && (this->i.get_num() > 0)) ||
-                ((this->i.get_den() > 0) && (this->i.get_num() < 0)) ; }
+        return ((this->i.get_den() < 0) and (this->i.get_num() > 0)) ||
+                ((this->i.get_den() > 0) and (this->i.get_num() < 0)) ; }
 
     /*! Add Rationals
      * \param other of type Rational
@@ -134,7 +135,7 @@ public:
         bool neg = other.is_negative();
         mpz_class exp_ = other.i;
         if (neg) exp_ = -exp_;
-        if (!(exp_.fits_ulong_p()))
+        if (not (exp_.fits_ulong_p()))
             throw std::runtime_error("powrat: 'exp' does not fit unsigned int.");
         unsigned long exp = exp_.get_ui();
         mpz_class num;
@@ -145,7 +146,7 @@ public:
 
         // Since 'this' is in canonical form, so is this**other, so we simply
         // pass num/den into the constructor directly:
-        if (!neg)
+        if (not neg)
             if (abs(den) == one->i)
                 return integer(num*sgn(den));
             else
@@ -234,6 +235,10 @@ void get_num_den(const Rational &rat,
         const Ptr<RCP<const Integer>> &num,
         const Ptr<RCP<const Integer>> &den);
 
+//! convenience creator from two longs
+inline RCP<const Number> rational(long n, long d) {
+    return Rational::from_two_ints(n, d);
+    }
 } // SymEngine
 
 #endif

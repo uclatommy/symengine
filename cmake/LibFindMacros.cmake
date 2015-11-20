@@ -22,7 +22,7 @@
 #     set(LIBS ${LIBS} ${GMP_LIBRARIES})
 #     # LIBS is later used in target_link_libraries()
 
-macro (libfind_library libname pkg)
+function (libfind_library libname pkg)
     string(TOUPPER ${pkg} PKG)
     string(TOUPPER ${libname} LIBNAME)
 
@@ -54,12 +54,19 @@ macro (libfind_library libname pkg)
             ${libname}
     )
 
-    add_library(${libname} UNKNOWN IMPORTED)
-    set_property(TARGET ${libname} PROPERTY IMPORTED_LOCATION ${${LIBNAME}_LIBRARY})
+    if (NOT TARGET ${libname})
+        add_library(${libname} UNKNOWN IMPORTED)
+        set_property(TARGET ${libname} PROPERTY IMPORTED_LOCATION ${${LIBNAME}_LIBRARY})
+    endif()
 
-endmacro()
+    if ("${${LIBNAME}_LIBRARY}" STREQUAL "${LIBNAME}_LIBRARY-NOTFOUND")
+        set(${LIBNAME}_LIBRARY_FOUND no)
+    else()
+        set(${LIBNAME}_LIBRARY_FOUND yes)
+    endif()
+endfunction()
 
-macro (libfind_include HEADER pkg)
+function (libfind_include HEADER pkg)
     string(TOUPPER ${pkg} PKG)
 
     find_path(${PKG}_INCLUDE_DIR
@@ -88,4 +95,4 @@ macro (libfind_include HEADER pkg)
         PATH_SUFFIXES
             ${pkg}
     )
-endmacro()
+endfunction()

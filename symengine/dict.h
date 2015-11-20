@@ -8,6 +8,7 @@
 #ifndef SYMENGINE_DICT_H
 #define SYMENGINE_DICT_H
 
+#define __GMPXX_USE_CXX11 1
 #include <gmpxx.h>
 
 namespace SymEngine {
@@ -58,7 +59,7 @@ bool umap_eq(const T &a, const T &b)
     // Can't be equal if # of entries differ:
     if (a.size() != b.size()) return false;
     // Loop over keys in "a":
-    for (auto &p: a) {
+    for (const auto &p: a) {
         // O(1) lookup of the key in "b":
         auto f = b.find(p.first);
         if (f == b.end()) return false; // no such element in "b"
@@ -119,7 +120,7 @@ typedef struct
 {
     inline std::size_t operator() (const vec_int &k) const {
         std::size_t h = 0;
-        for (auto &p: k) {
+        for (const auto &p: k) {
             h = (h << 4) + p;
         }
         return h;
@@ -152,4 +153,3 @@ std::ostream& operator<<(std::ostream& out, const SymEngine::vec_basic& d);
 std::ostream& operator<<(std::ostream& out, const SymEngine::set_basic& d);
 
 #endif
-

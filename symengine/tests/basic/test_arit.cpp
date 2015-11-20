@@ -326,7 +326,7 @@ TEST_CASE("Div: arit", "[arit]")
     REQUIRE(integer(2)->is_positive());
     REQUIRE(integer(0)->is_zero());
     REQUIRE(integer(1)->is_one());
-    REQUIRE(!(integer(-1)->is_positive()));
+    REQUIRE(not (integer(-1)->is_positive()));
     REQUIRE(integer(-1)->is_negative());
 
     RCP<const Basic> r1, r2;
@@ -647,6 +647,18 @@ TEST_CASE("Pow: arit", "[arit]")
 
     r1 = pow(x, real_double(0.0));
     r2 = real_double(1.0);
+    REQUIRE(eq(*r1, *r2));
+
+    r1 = sqrt(mul(i2, x));
+    r2 = mul(sqrt(i2), sqrt(x));
+    REQUIRE(eq(*r1, *r2));
+
+    r1 = sqrt(mul(neg(i2), x));
+    r2 = mul(sqrt(i2), sqrt(neg(x)));
+    REQUIRE(eq(*r1, *r2));
+
+    r1 = pow(mul(sqrt(mul(y, x)), x), i2);
+    r2 = mul(pow(x, i3), y);
     REQUIRE(eq(*r1, *r2));
 }
 

@@ -66,7 +66,7 @@ TEST_CASE("test_printing(): printing", "[printing]")
     REQUIRE(r->__str__() == "23*(7/3)**(1/2)*(5/2)**(1/2)");
 
     r = pow(div(symbol("x"), integer(2)), div(integer(1), integer(2)));
-    REQUIRE(r->__str__() == "((1/2)*x)**(1/2)");
+    REQUIRE(r->__str__() == "(1/2)**(1/2)*x**(1/2)");
 
     r = pow(div(integer(3), integer(2)),div(integer(1), integer(2)));
     REQUIRE(r->__str__() == "(3/2)**(1/2)");
@@ -285,7 +285,7 @@ TEST_CASE("test_floats(): printing", "[printing]")
 
     p = real_double(0.00000011);
     p = mul(p, x);
-    bool pr = (p->__str__() == "1.1e-07*x") || (p->__str__() == "1.1e-007*x");
+    bool pr = (p->__str__() == "1.1e-07*x") or (p->__str__() == "1.1e-007*x");
     REQUIRE(pr == true);
 
     p = complex_double(std::complex<double>(0.1, 0.2));

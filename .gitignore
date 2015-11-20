@@ -5,7 +5,10 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 CTestTestfile.cmake
-cmake/cython_test.cpp
+cython_test.cpp
+SymEngineConfig.cmake
+SymEngineConfigVersion.cmake
+SymEngineTargets.cmake
 
 # Compiled Object Files, Static/Dynamic Libraries
 *.so
@@ -51,6 +54,7 @@ symengine/tests/basic/test_integer
 symengine/tests/basic/test_number
 symengine/tests/basic/test_poly
 symengine/tests/basic/test_polynomial
+symengine/tests/basic/test_series
 symengine/tests/basic/test_subs
 symengine/tests/matrix/test_matrix
 symengine/tests/ntheory/test_ntheory
@@ -62,6 +66,7 @@ symengine/tests/eval/test_eval_double
 symengine/tests/eval/test_eval_arb
 symengine/tests/eval/test_eval_mpfr
 symengine/tests/eval/test_eval_mpc
+symengine/tests/eval/test_lambda_double
 symengine/tests/expression/test_expression
 
 # Benchmarks executables
@@ -79,6 +84,7 @@ benchmarks/matrix_add1_ginac
 benchmarks/matrix_add2_ginac
 benchmarks/matrix_mul1_ginac
 benchmarks/matrix_mul2_ginac
+benchmarks/series
 benchmarks/symbench
 benchmarks/symbench_ginac
 benchmarks/lwbench
